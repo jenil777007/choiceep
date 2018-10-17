@@ -1,5 +1,7 @@
 import logging
+
 from pymongo import MongoClient
+
 from Constants import *
 
 logging.basicConfig(format='%(asctime)s - %(message)s', level=logging.INFO)
@@ -21,13 +23,13 @@ def connect_mongo_and_return_collection():
         print("Something went wrong while fetching the table from the MongoDB client...")
 
 
-def insert_document():
+def insert_document(document):
     collection = connect_mongo_and_return_collection()
-    testEntry = dict()
-    testEntry["title"] = "jenil"
-    testEntry["t2"] = "clacuttawal"
-    print("testEntry is..." + str(testEntry))
-    result = collection.insert(testEntry)
+    # testEntry = dict()
+    # testEntry["title"] = "ashish"
+    # testEntry["t2"] = "sinha"
+    print("In progress data -> " + str(document))
+    result = collection.insert(document)
 
     if result is None:
         logging.error("Couldn't insert the document to the database...")
@@ -36,5 +38,3 @@ def insert_document():
         logging.info("Successfully inserted the document to the database with key -> " + str(result))
         print("Inserted the document to the database with key -> " + str(result))
 
-
-insert_document()
