@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup as soup
 
 from MongoClient import *
 
+logging.basicConfig(format='%(asctime)s - %(message)s')
+
 url = 'https://www.flipkart.com/search?q=mobile'
 
 
@@ -55,6 +57,25 @@ for index, product in enumerate(products):
             document["productCategory"] = productCategory
             # document["creditCardProvider"] =
             document["offerDescription"] = offerDescription
-            document["timeStamp"] = datetime.now()
 
-            insert_document(document)
+            # if document present in db with above mentioned params
+            #     fetch it from db
+            #     check if the date is same as today's
+            #       if yes then update timestamp to systime and update it to db
+            #       else insert new document
+            # else
+            #     insert document into the db
+
+            foundDocuments = find_document_in_db(document)
+            if foundDocuments is not None:
+                for fd in foundDocuments:
+                    document["timeStamp"] = datetime.now()
+                    if fd['timeStamp'].date() == document["timeStamp"].date():
+                        fd['timeStamp'] = datetime.now()
+                        update_timeStamp_of_document_in_db(fd)
+                    else:
+                        insert_document_into_db(document)
+            else:
+                print("Couldn't find the document in the db -> " + str(document))
+
+                insert_document_into_db(document)
