@@ -20,3 +20,12 @@ URLS_TO_CRAWL = {
     "https://www.flipkart.com/search?q=womens-clothing",
     "https://www.flipkart.com/search?q=watches"
 }
+
+SUPPORTED_BANKS = {
+    "Axis",
+    "Citi",
+    "HDFC",
+    "ICICI",
+    "SBI",
+    "Standard Chartered"
+}

@@ -1,3 +1,4 @@
+import re
 from datetime import datetime
 from urllib.request import Request, urlopen as uReq
 
@@ -58,7 +59,9 @@ for url in URLS_TO_CRAWL:
                 document = dict()
                 document["siteName"] = url.split(".")[1].title()
                 document["productCategory"] = productCategory
-                # document["creditCardProvider"] =
+                for bankName in SUPPORTED_BANKS:
+                    if re.search(bankName, offerDescription, re.IGNORECASE):
+                        document["creditCardProvider"] = bankName
                 document["offerDescription"] = offerDescription
 
                 # if document present in db with above mentioned params
