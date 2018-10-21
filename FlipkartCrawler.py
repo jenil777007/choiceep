@@ -56,7 +56,7 @@ for url in URLS_TO_CRAWL:
                 print(offerDescription)
 
                 document = dict()
-                # document["siteName"] =
+                document["siteName"] = url.split(".")[1].title()
                 document["productCategory"] = productCategory
                 # document["creditCardProvider"] =
                 document["offerDescription"] = offerDescription
